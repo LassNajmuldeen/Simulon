@@ -10,7 +10,7 @@ from src.core.heat_solver import HeatEquationSolver
 from src.core.pinn_solver import PINNHeatEquationSolver
 from src.visualizer.heat_visualizer import animate_heat_solution
 
-app = FastAPI(title="Simulon: Scientific Simulation API")
+app = FastAPI(title="Simulon: Scientific PDE Simulation API")
 
 # In-memory storage for simulation results (for demo purposes)
 simulations = {}
@@ -80,7 +80,8 @@ def visualize(sim_id: str):
         # Reconstruct x and dt (assume uniform grid and time step for demo)
         x = np.linspace(0, 1, nx)
         dt = 0.01  # Placeholder, should be stored with simulation
-        gif_path = f"/tmp/{sim_id}.gif"
+        os.makedirs("tmp", exist_ok=True)
+        gif_path = f"tmp/{sim_id}.gif"
         animate_heat_solution(solution, x, dt, save_path=gif_path)
         return FileResponse(gif_path, media_type="image/gif")
     return {"message": f"Visualization for {sim_id} not yet implemented"} 
