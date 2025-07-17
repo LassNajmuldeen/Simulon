@@ -1,13 +1,44 @@
-# Simulon
+# Simulon: Scientific Simulation API
 
-Simulon: Scientific Simulation API for Visualizing and Solving the 1D Heat Equation with Classical and Neural PDE Solvers.
+Simulon is an open-source backend and interactive API for simulating and visualizing scientific phenomena, starting with the 1D Heat Equation. It supports both classical numerical solvers and Physics-Informed Neural Networks (PINNs).
 
 ## Features
-- Numerical solver for the 1D heat equation (finite-difference)
-- Physics-Informed Neural Network (PINN) solver using PyTorch
+- Solve the 1D Heat Equation numerically (finite-difference)
+- (Planned) Solve with PINNs (PyTorch)
 - REST API for simulation and visualization
-- Animated and static visualizations
-- Full test coverage
+- Animated visualizations (coming soon)
+- Full test coverage (coming soon)
 
-## Getting Started
-Instructions for setup, usage, and API calls will be added soon. 
+## Setup
+```bash
+python -m venv venv
+source venv/bin/activate  # or venv\Scripts\activate on Windows
+pip install -r requirements.txt
+```
+
+## Running the API
+```bash
+uvicorn src.api.main:app --reload
+```
+
+## API Endpoints
+- `POST /solve/numerical` — Solve the heat equation numerically
+- `POST /solve/pinn` — Solve with a PINN (WIP)
+- `GET /visualize/{id}` — Visualize a simulation (WIP)
+
+## Example Request (Numerical)
+```json
+{
+  "length": 1.0,
+  "nx": 50,
+  "alpha": 0.01,
+  "dt": 0.001,
+  "t_final": 0.1,
+  "u0": [0, 0, ..., 0],
+  "bc_left": 0.0,
+  "bc_right": 1.0
+}
+```
+
+## License
+MIT
