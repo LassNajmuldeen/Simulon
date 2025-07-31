@@ -12,7 +12,7 @@ Simulon is an open-source backend and interactive API for simulating and visuali
 ## Setup
 ```bash
 python -m venv venv
-source venv/bin/activate  # or venv\Scripts\activate on Windows
+source venv\Scripts\activate # or venv/bin/activate on Linux
 pip install -r requirements.txt
 ```
 
@@ -30,15 +30,14 @@ uvicorn src.api.main:app --reload
 ```json
 {
   "length": 1.0,
-  "nx": 50,
+  "nx": 10,
   "alpha": 0.01,
   "dt": 0.001,
-  "t_final": 0.1,
-  "u0": [0, 0, ..., 0],
-  "bc_left": 0.0,
-  "bc_right": 1.0
+  "t_final": 0.01,
+  "u0": [0,0,0,0,0,0,0,0,0,0],
+  "bc_left": 1.0,
+  "bc_right": 0.0
 }
-```
 
 ## License
 MIT
