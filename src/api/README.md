@@ -15,9 +15,8 @@ uvicorn src.api.main:app --reload
 ## 2. Test the API Endpoints
 
 ### Step 1: Open the API Documentation
-1. Open your web browser
-2. Navigate to: http://127.0.0.1:8000/docs
-3. You'll see the Swagger UI with all available endpoints
+1. Navigate to: http://127.0.0.1:8000/docs
+2. You'll see the Swagger UI with all available endpoints
 
 ### Step 2: Test the Numerical Solver
 1. **Find the `/solve/numerical` endpoint** (POST method)
@@ -51,7 +50,7 @@ uvicorn src.api.main:app --reload
 ### Step 3: Visualize the Simulation
 1. **Find the `/visualize/{sim_id}` endpoint** (GET method)
 2. **Click "Try it out"**
-3. **Paste ONLY the simulation_id** (not the whole JSON response) into the `sim_id` field
+3. **Paste ONLY the simulation_id** into the `sim_id` field
 4. **Click "Execute"**
 5. **Download the GIF file** that appears in the response
 
