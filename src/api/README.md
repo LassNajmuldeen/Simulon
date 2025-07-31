@@ -1,26 +1,6 @@
-# Simulon API - Step-by-Step Guide
+# Test the Simulon API
 
-## Prerequisites
-- Python 3.8+ installed
-- Git repository cloned locally
-
-## 1. Setup Virtual Environment
-
-### Activate Virtual Environment
-```bash
-# On Windows:
-venv\Scripts\activate
-
-# On Mac/Linux:
-source venv/bin/activate
-```
-
-### Install Dependencies
-```bash
-pip install -r requirements.txt
-```
-
-## 2. Start the FastAPI Server
+## 1. Start the FastAPI Server
 
 From your project root directory, run:
 ```bash
@@ -32,7 +12,7 @@ uvicorn src.api.main:app --reload
 - Interactive API Docs: http://127.0.0.1:8000/docs
 - Alternative Docs: http://127.0.0.1:8000/redoc
 
-## 3. Test the API Endpoints
+## 2. Test the API Endpoints
 
 ### Step 1: Open the API Documentation
 1. Open your web browser
@@ -75,7 +55,7 @@ uvicorn src.api.main:app --reload
 4. **Click "Execute"**
 5. **Download the GIF file** that appears in the response
 
-## 4. Parameter Explanation
+## 3. Parameter Explanation
 
 | Parameter | Description | Example Value |
 |-----------|-------------|---------------|
@@ -89,7 +69,7 @@ uvicorn src.api.main:app --reload
 | `bc_right` | Right boundary condition | 0.0 |
 | `save_every` | Save solution every N time steps | 1 |
 
-## 5. Troubleshooting
+## 4. Troubleshooting
 
 ### Common Issues:
 - **404 "Simulation not found"**: Make sure you're using the correct simulation_id and haven't restarted the server
@@ -104,22 +84,3 @@ netstat -an | findstr :8000
 # Use a different port if needed
 uvicorn src.api.main:app --reload --port 8001
 ```
-
-## 6. Run Tests
-
-To run the automated tests:
-```bash
-# Install test dependencies
-pip install httpx pytest
-
-# Set Python path and run tests
-set PYTHONPATH=.
-pytest
-```
-
-## 7. Next Steps
-
-- Try different initial conditions and parameters
-- Experiment with the PINN solver (when implemented)
-- Check the generated GIF files in the `tmp/` directory
-- Explore the API documentation for more details 
