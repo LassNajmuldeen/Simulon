@@ -51,7 +51,18 @@ def solve_numerical(req: NumericalRequest):
     )
     sol = solver.solve(save_every=req.save_every)
     sim_id = str(uuid.uuid4())
-    simulations[sim_id] = {"type": "numerical", "solution": sol.tolist()}
+    simulations[sim_id] = {
+        "type": "numerical", 
+        "solution": sol.tolist(),
+        "metadata": {
+            "length": req.length,
+            "nx": req.nx,
+            "alpha": req.alpha,
+            "dt": req.dt,
+            "t_final": req.t_final,
+            "save_every": req.save_every
+        }
+    }
     return {"simulation_id": sim_id, "solution_shape": sol.shape}
 
 @app.post("/solve/pinn")
@@ -73,15 +84,30 @@ def visualize(sim_id: str):
     """
     if sim_id not in simulations:
         raise HTTPException(status_code=404, detail="Simulation not found")
+    
     sim = simulations[sim_id]
     if sim["type"] == "numerical":
-        solution = np.array(sim["solution"])
-        nt, nx = solution.shape
-        # Reconstruct x and dt (assume uniform grid and time step for demo)
-        x = np.linspace(0, 1, nx)
-        dt = 0.01  # Placeholder, should be stored with simulation
-        os.makedirs("tmp", exist_ok=True)
-        gif_path = f"tmp/{sim_id}.gif"
-        animate_heat_solution(solution, x, dt, save_path=gif_path)
-        return FileResponse(gif_path, media_type="image/gif")
+        try:
+            solution = np.array(sim["solution"])
+            metadata = sim["metadata"]
+            nt, nx = solution.shape
+            
+            # Use actual simulation parameters
+            x = np.linspace(0, metadata["length"], metadata["nx"])
+            dt = metadata["dt"] * metadata["save_every"]  # Actual time step between saved frames
+            
+            os.makedirs("tmp", exist_ok=True)
+            gif_path = f"tmp/{sim_id}.gif"
+            
+            # Create the animation
+            animate_heat_solution(solution, x, dt, save_path=gif_path)
+            
+            # Check if file was created
+            if not os.path.exists(gif_path):
+                raise HTTPException(status_code=500, detail="Failed to create GIF file")
+            
+            return FileResponse(gif_path, media_type="image/gif")
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=f"Visualization error: {str(e)}")
+    
     return {"message": f"Visualization for {sim_id} not yet implemented"} 
