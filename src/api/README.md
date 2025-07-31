@@ -9,8 +9,7 @@ uvicorn src.api.main:app --reload
 
 **Server Information:**
 - API Server: http://127.0.0.1:8000
-- Interactive API Docs: http://127.0.0.1:8000/docs
-- Alternative Docs: http://127.0.0.1:8000/redoc
+- Docs: http://127.0.0.1:8000/docs
 
 ## 2. Test the API Endpoints
 
